@@ -1,0 +1,24 @@
+sed -i '/catfish/s/^/#&/' $HOME/arco-bspwm/*.sh &&
+sed -i '/galculator/s/^/#&/' $HOME/arco-bspwm/*.sh &&
+sed -i '/variety/s/^/#&/' $HOME/arco-bspwm/*.sh &&
+sed -i '/atom/s/^/#&/' $HOME/arco-bspwm/*.sh &&
+sed -i '/geany/s/^/#&/' $HOME/arco-bspwm/*.sh &&
+sed -i '/gimp/s/^/#&/' $HOME/arco-bspwm/*.sh &&
+sed -i '/inkscape/s/^/#&/' $HOME/arco-bspwm/*.sh &&
+sed -i '/nomacs/s/^/#&/' $HOME/arco-bspwm/*.sh &&
+sed -i '/ristretto/s/^/#&/' $HOME/arco-bspwm/*.sh &&
+sed -i '/chromium/s/^/#&/' $HOME/arco-bspwm/*.sh &&
+sed -i '/firefox/s/^/#&/' $HOME/arco-bspwm/*.sh &&
+sed -i '/pragha/s/^/#&/' $HOME/arco-bspwm/*.sh &&
+sed -i '/evince/s/^/#&/' $HOME/arco-bspwm/*.sh &&
+sed -i '/evolution/s/^/#&/' $HOME/arco-bspwm/*.sh &&
+sed -i '/install-gradio/s/^/#&/' $HOME/arco-bspwm/*.sh &&
+sed -i '/install-radiotray/s/^/#&/' $HOME/arco-bspwm/*.sh &&
+sed -i '/install-virtualbox-for-linux/s/^/#&/' $HOME/arco-bspwm/*.sh &&
+sed -i '/install-mpd-ncmpcpp/s/^/#&/' $HOME/arco-bspwm/*.sh &&
+sed -i '/xfce4-notifyd/s/^/#&/' $HOME/arco-bspwm/*.sh &&
+sed -i '/discord/s/^/#&/' $HOME/arco-bspwm/*.sh &&
+sed -i '/dropbox/s/^/#&/' $HOME/arco-bspwm/*.sh &&
+sed -i '/spotify/s/^/#&/' $HOME/arco-bspwm/*.sh &&
+sed -i '/install-spotifywm-git/s/^/#&/' $HOME/arco-bspwm/*.sh &&
+sed -i '/discord/s/^/#&/' $HOME/arco-bspwm/*.sh
