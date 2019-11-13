@@ -1,24 +1,64 @@
-sed -i '/catfish/s/^/#&/' $HOME/arco-bspwm/*.sh &&
-sed -i '/galculator/s/^/#&/' $HOME/arco-bspwm/*.sh &&
-sed -i '/variety/s/^/#&/' $HOME/arco-bspwm/*.sh &&
-sed -i '/atom/s/^/#&/' $HOME/arco-bspwm/*.sh &&
-sed -i '/geany/s/^/#&/' $HOME/arco-bspwm/*.sh &&
-sed -i '/gimp/s/^/#&/' $HOME/arco-bspwm/*.sh &&
-sed -i '/inkscape/s/^/#&/' $HOME/arco-bspwm/*.sh &&
-sed -i '/nomacs/s/^/#&/' $HOME/arco-bspwm/*.sh &&
-sed -i '/ristretto/s/^/#&/' $HOME/arco-bspwm/*.sh &&
-sed -i '/chromium/s/^/#&/' $HOME/arco-bspwm/*.sh &&
-sed -i '/firefox/s/^/#&/' $HOME/arco-bspwm/*.sh &&
-sed -i '/pragha/s/^/#&/' $HOME/arco-bspwm/*.sh &&
-sed -i '/evince/s/^/#&/' $HOME/arco-bspwm/*.sh &&
-sed -i '/evolution/s/^/#&/' $HOME/arco-bspwm/*.sh &&
-sed -i '/install-gradio/s/^/#&/' $HOME/arco-bspwm/*.sh &&
-sed -i '/install-radiotray/s/^/#&/' $HOME/arco-bspwm/*.sh &&
-sed -i '/install-virtualbox-for-linux/s/^/#&/' $HOME/arco-bspwm/*.sh &&
-sed -i '/install-mpd-ncmpcpp/s/^/#&/' $HOME/arco-bspwm/*.sh &&
-sed -i '/xfce4-notifyd/s/^/#&/' $HOME/arco-bspwm/*.sh &&
-sed -i '/discord/s/^/#&/' $HOME/arco-bspwm/*.sh &&
-sed -i '/dropbox/s/^/#&/' $HOME/arco-bspwm/*.sh &&
-sed -i '/spotify/s/^/#&/' $HOME/arco-bspwm/*.sh &&
-sed -i '/install-spotifywm-git/s/^/#&/' $HOME/arco-bspwm/*.sh &&
-sed -i '/discord/s/^/#&/' $HOME/arco-bspwm/*.sh
+#!/bin/sh
+show_menu(){
+    normal=`echo "\033[m"`
+    menu=`echo "\033[36m"` #Blue
+    number=`echo "\033[33m"` #yellow
+    bgred=`echo "\033[41m"`
+    fgred=`echo "\033[31m"`
+    printf "\n${menu}*********************************************${normal}\n"
+    printf "${menu}**${number} 1)${menu} Mount dropbox ${normal}\n"
+    printf "${menu}**${number} 2)${menu} Mount USB 500 Gig Drive ${normal}\n"
+    printf "${menu}**${number} 3)${menu} Restart Apache ${normal}\n"
+    printf "${menu}**${number} 4)${menu} ssh Frost TomCat Server ${normal}\n"
+    printf "${menu}**${number} 5)${menu} Some other commands${normal}\n"
+    printf "${menu}*********************************************${normal}\n"
+    printf "Please enter a menu option and enter or ${fgred}x to exit. ${normal}"
+    read opt
+}
+
+option_picked(){
+    msgcolor=`echo "\033[01;31m"` # bold red
+    normal=`echo "\033[00;00m"` # normal white
+    message=${@:-"${normal}Error: No message passed"}
+    printf "${msgcolor}${message}${normal}\n"
+}
+
+clear
+show_menu
+while [ $opt != '' ]
+    do
+    if [ $opt = '' ]; then
+      exit;
+    else
+      case $opt in
+        1) clear;
+            option_picked "Option 1 Picked";
+            printf "sudo mount /dev/sda5 /mnt/DropBox/; #The 3 terabyte";
+            show_menu;
+        ;;
+        2) clear;
+            option_picked "Option 2 Picked";
+            printf "sudo mount /dev/sdi1 /mnt/usbDrive; #The 500 gig drive";
+            show_menu;
+        ;;
+        3) clear;
+            option_picked "Option 3 Picked";
+            printf "sudo service apache2 restart";
+            show_menu;
+        ;;
+        4) clear;
+            option_picked "Option 4 Picked";
+            printf "ssh lmesser@ -p 2010";
+            show_menu;
+        ;;
+        x)exit;
+        ;;
+        \n)exit;
+        ;;
+        *)clear;
+            option_picked "Pick an option from the menu";
+            show_menu;
+        ;;
+      esac
+    fi
+done
