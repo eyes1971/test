@@ -1,0 +1,7 @@
+#!/bin/bash
+sudo -k
+while true; do
+  pwd=$(dialog --keep-tite --nocancel --output-fd 1 --insecure --passwordbox "[sudo] password for $USER" 7 60 "")
+  if echo "$pwd" | sudo -Sv 2>/dev/null; then break; else dialog --keep-tite --msgbox "Incorrect password for user '$USER', try again!" 8 40; fi
+done
+while true; do sleep 60; sudo -n true; kill -0 "$$" || exit; done 2>/dev/null &

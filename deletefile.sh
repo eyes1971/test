@@ -18,7 +18,7 @@ function delete_file(){
 
 # select filename using dialog
 # store it to $FILE
-FILE=$(dialog --title "Delete a file" --stdout --title "Please choose a file to delete" --fselect $HOME/backup/ 14 88)
+FILE=$(dialog --title "Delete a file" --stdout --title "Please choose a file to delete" --fselect $HOME/backup/*.tar.xz 14 88)
 
 # delete file
 [ ! -z $FILE ] && delete_file "$FILE"

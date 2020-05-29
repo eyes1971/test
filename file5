@@ -1,0 +1,57 @@
+#!/bin/bash
+
+# WiFi Setup for Ubuntu 18.04
+
+
+function deleteWiFi() {
+        echo "Deleting Connection $1..."
+        sudo nmcli con delete "$1"
+}
+
+function connectWiFi() {
+        echo "Connecting..."
+        sudo timeout 5 nmcli con up "$1"
+        nmcli con
+        if (nmcli con | grep "$SSID" > /dev/null); then
+                echo -e "\033[1m\033[5m\033[32m\033[40mSUCCESS\033[0m"
+        else
+                echo -e "\033[1m\033[5m\033[31mFailed\033[0m: Not connected to requested WiFi!"
+        fi
+}
+
+SSID=$(dialog --clear --inputbox "Please enter SSID: " 7 10 2>&1 >/dev/tty)
+
+if nmcli con show id "$SSID" &>/dev/null; then
+        ACTION=$(dialog --menu "Connection named like SSID already exists." 10 34 2 Con "Connect to it" Del "Delete old connection" 2>&1 >/dev/tty)
+        if [ "$ACTION" = "Con" ]; then
+                connectWiFi "$SSID"
+                exit 0
+        elif [ "$ACTION" = "Del" ]; then
+                deleteWiFi "$SSID"
+        else
+                exit 1
+        fi
+fi
+
+dialog --clear --yesno "Has password?" 5 17 2>&1 >10 2>&1 >/dev/tty
+HAS_PW=$?
+if [ $HAS_PW ]; then
+        PASSWORD=$(dialog --clear --passwordbox "Password:" 7 10 2>&1 >/dev/tty)
+fi
+TEAM_ID=$(dialog --clear --inputbox "Team ID: " 7 10 2>&1 >/dev/tty)
+# BOT_ID=$(dialog --clear --inputbox "Bot ID: " 7 10 2>&1 >/dev/tty)
+IP_LAST_OCTET=$(dialog --clear --inputbox "Last IP octet: " 7 10 2>&1 >/dev/tty)
+MY_IP="192.168.${TEAM_ID}.${IP_LAST_OCTET}"
+GATEWAY="192.168.1.1"
+SUBNET="16"
+IFACE="wlp1s0"
+
+echo "Disconnecting WiFi..."
+sudo nmcli dev disconnect "$IFACE"
+echo "Initializing connection..."
+sudo timeout 1 nmcli dev wifi connect "$SSID" password "$PASSWORD" name "$SSID"
+echo "Changing to static IP config..."
+sudo sed -i "/\[ipv4\]/,+2s/method=auto/method=manual\naddress1=${MY_IP}\/${SUBNET},${GATEWAY}/" "/etc/NetworkManager/system-connections/$SSID"
+echo "Disconnecting WiFi..."
+sudo nmcli dev disconnect "$IFACE"
+connectWiFi "$SSID"
